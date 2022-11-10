@@ -23,7 +23,8 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(cookieParser());
-
+app.use(express.json({ extended: false }));
+app.set('trust proxy', 1)
 app.use(
     session({
         key: 'user_sid',
@@ -32,10 +33,14 @@ app.use(
         saveUninitialized: false,
         cookie: {
             expires: 600000,
-            httpOnly: false
+            httpOnly: false,
+            sameSite: "lax",
+            secure: false,
         },
     })
 )
+
+app.use("/payment", require("./router/payment"));
 
 app.use((req, res, next) => {
     if (req.cookies.user_sid && !req.session.user) {
@@ -52,7 +57,6 @@ const sessionChecker = (req, res, next) => {
     }
 };
 
-
 //route for landing page , shown even when not logged in
 app.get("/", sessionChecker, (req, res) => {
     res.send("<h1>KoshBooks api</h1>");
@@ -62,6 +66,7 @@ app.use("/book", bookRouter);
 app.use("/wish", wishRouter);
 app.use("/feedback", feedbackRouter);
 app.get("/user", (req, res) => {
+    console.log(req.session.user);
     if (req.session.user != null) {
         res.status(200).send(req.session.user);
     } else {
