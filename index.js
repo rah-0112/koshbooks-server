@@ -138,23 +138,20 @@ app
 
 app
     .route("/signup")
-    .post((req, res) => {
-        var user = new User({
+    .post(async (req, res) => {
+        await User.create({
             username: req.body.username,
             phone: req.body.phone,
             password: req.body.password,
             birthdate: req.body.birthdate,
             mail: req.body.mail,
             role: req.body.phone === process.env.ADMIN_PHONE ? "ADMIN" : "USER",
-        });
-        user.save((err, docs) => {
-            if (err) {
-                res.status(401).json({ message: "Error" });
-            } else {
-                req.session.user = docs;
+        })
+            .then((user) => {
+                req.session.user = user;
                 res.status(200).json({ user });
-            }
-        });
+            })
+            .catch((err) => console.log(err));
     });
 
 // route for handling 404 requests(unavailable routes)
