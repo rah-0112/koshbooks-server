@@ -125,6 +125,7 @@ app
 app
     .route("/signup")
     .post(async (req, res) => {
+        const mail = req.body.mail;
         var user = await User.findOne({ mail }).exec();
         if (user) {
             req.session.user = user;
