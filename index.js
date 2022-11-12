@@ -73,6 +73,9 @@ app.get("/user", (req, res) => {
         res.status(401).send({ message: 'Unauthorized' });
     }
 });
+app.delete("/user", (req, res) => {
+    res.clearCookie("user_sid");
+});
 
 // route for user logout
 app.get("/logout", (req, res) => {
