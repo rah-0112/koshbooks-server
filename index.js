@@ -35,7 +35,7 @@ app.use(
             expires: 600000,
             // httpOnly: false,
             sameSite: "none",
-            secure: false,
+            secure: true,
         },
     })
 )
