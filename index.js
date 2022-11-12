@@ -74,12 +74,8 @@ app.get("/user", (req, res) => {
     }
 });
 app.delete("/user", (req, res) => {
-    // req.session.user = null;
-    console.log(req.session.user);
-    console.log(req.cookie);
-    res.clearCookie("user_sid");
-    console.log(req.session.user);
-    console.log(req.cookie);
+    req.session.user = null;
+    req.cookies.user_sid = null;
     res.send({ message: "Cookie cleared" });
 });
 
