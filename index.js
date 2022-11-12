@@ -35,7 +35,7 @@ app.use(
             expires: 600000,
             // httpOnly: false,
             sameSite: "none",
-            secure: true,
+            secure: false,
         },
     })
 )
@@ -108,29 +108,15 @@ app
                 res.status(201).json({ message: "No such user exists" });
                 console.log("Error");
             }
-            if (!req.body.google) {
+            if (user) {
                 user.comparePassword(password, (error, match) => {
                     if (!match) {
                         res.status(201).json({ message: "Wrong credentials" });
-                        console.log("User not exists");
                     }
                 });
             }
-            if (req.body.google && user == null) {
-                User.create({
-                    username: req.body.username,
-                    mail: req.body.mail,
-                    password: req.body.password
-                })
-                    .then((user) => {
-                        req.session.user = user;
-                        res.status(200).json({ message: "Signed up and logged in" });
-                    })
-                    .catch((err) => console.log(err));
-            } else {
-                req.session.user = user;
-                res.status(200).json({ user });
-            }
+            req.session.user = user;
+            res.status(200).json({ user });
         } catch (error) {
             console.log(error)
         }
