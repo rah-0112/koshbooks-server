@@ -125,6 +125,11 @@ app
 app
     .route("/signup")
     .post(async (req, res) => {
+        var user = await User.findOne({ mail }).exec();
+        if (user) {
+            req.session.user = user;
+            res.status(200).json({ user });
+        }
         await User.create({
             username: req.body.username,
             phone: req.body.phone,
