@@ -75,6 +75,7 @@ app.get("/user", (req, res) => {
 });
 app.delete("/user", (req, res) => {
     res.clearCookie("user_sid");
+    res.send({ message: "Cookie deleted" });
 });
 
 // route for user logout
