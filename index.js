@@ -33,7 +33,6 @@ app.use(
         saveUninitialized: false,
         cookie: {
             expires: 600000,
-            // httpOnly: false,
             sameSite: "none",
             secure: true,
         },
