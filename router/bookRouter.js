@@ -10,7 +10,7 @@ router
 
 router
     .route('/:id')
-    .get(authCheck, getBook)
+    .get(getBook)
     .patch(authCheck, adminCheck, updateBook)
     .delete(authCheck, adminCheck, deleteBook)
 
