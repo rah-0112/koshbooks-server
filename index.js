@@ -16,7 +16,7 @@ const feedbackRouter = require('./router/feedbackRouter');
 dotenv.config();
 app.use(morgan("dev"));
 const corsOptions = {
-    origin: [ "http://localhost:3000", "https://koshbooks.vercel.app/" ],
+    origin: [ "http://localhost:3000", "https://koshbooks.vercel.app" ],
     credentials: true,
     optionSuccessStatus: 200,
 }
