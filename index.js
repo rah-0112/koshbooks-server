@@ -33,8 +33,8 @@ app.use(
         saveUninitialized: false,
         cookie: {
             expires: 600000,
-            sameSite: "lax",
-            secure: false,
+            sameSite: "none",
+            secure: true,
         },
     })
 )
