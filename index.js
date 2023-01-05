@@ -33,8 +33,8 @@ app.use(
         saveUninitialized: false,
         cookie: {
             expires: 600000,
-            sameSite: "lax",
-            secure: false,
+            sameSite: "none",
+            secure: true,
         },
     })
 )
@@ -114,6 +114,9 @@ app
                 });
             }
             req.session.user = user;
+            console.log(req);
+            console.log(req.session);
+            console.log(user);
             res.status(200).json({ user });
         } catch (error) {
             console.log(error)
